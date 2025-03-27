@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DB1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Emp">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Position" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Salary" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EMPLOYEE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ENAME" Type="varchar" MaxLength="30" />
+          <Property Name="CITY" Type="varchar" MaxLength="30" />
+          <Property Name="SELERY" Type="varchar" MaxLength="20" />
+          <Property Name="JOINDATE" Type="varchar" MaxLength="30" />
+          <Property Name="Desig" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="marks">
+          <Key>
+            <PropertyRef Name="mark_id" />
+          </Key>
+          <Property Name="mark_id" Type="int" Nullable="false" />
+          <Property Name="student_id" Type="int" />
+          <Property Name="subject" Type="varchar" MaxLength="50" />
+          <Property Name="marks" Type="int" />
+        </EntityType>
+        <EntityType Name="students">
+          <Key>
+            <PropertyRef Name="student_id" />
+          </Key>
+          <Property Name="student_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="age" Type="int" />
+          <Property Name="class" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="usersTable">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="role" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__marks__student_i__04E4BC85">
+          <End Role="students" Type="Self.students" Multiplicity="0..1" />
+          <End Role="marks" Type="Self.marks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="students">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="marks">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB1ModelStoreContainer">
+          <EntitySet Name="Emp" EntityType="Self.Emp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="marks" EntityType="Self.marks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="students" EntityType="Self.students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usersTable" EntityType="Self.usersTable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__marks__student_i__04E4BC85" Association="Self.FK__marks__student_i__04E4BC85">
+            <End Role="students" EntitySet="students" />
+            <End Role="marks" EntitySet="marks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Emp">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Position" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Salary" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EMPLOYEE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ENAME" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CITY" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="SELERY" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="JOINDATE" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Desig" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="mark">
+          <Key>
+            <PropertyRef Name="mark_id" />
+          </Key>
+          <Property Name="mark_id" Type="Int32" Nullable="false" />
+          <Property Name="student_id" Type="Int32" />
+          <Property Name="subject" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="marks" Type="Int32" />
+          <NavigationProperty Name="student" Relationship="Self.FK__marks__student_i__04E4BC85" FromRole="marks" ToRole="students" />
+        </EntityType>
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="student_id" />
+          </Key>
+          <Property Name="student_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="age" Type="Int32" />
+          <Property Name="class" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="marks" Relationship="Self.FK__marks__student_i__04E4BC85" FromRole="students" ToRole="marks" />
+        </EntityType>
+        <EntityType Name="usersTable">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__marks__student_i__04E4BC85">
+          <End Role="students" Type="Self.student" Multiplicity="0..1" />
+          <End Role="marks" Type="Self.mark" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="students">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="marks">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB1Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Emps" EntityType="Self.Emp" />
+          <EntitySet Name="EMPLOYEEs" EntityType="Self.EMPLOYEE" />
+          <EntitySet Name="marks" EntityType="Self.mark" />
+          <EntitySet Name="students" EntityType="Self.student" />
+          <EntitySet Name="usersTables" EntityType="Self.usersTable" />
+          <AssociationSet Name="FK__marks__student_i__04E4BC85" Association="Self.FK__marks__student_i__04E4BC85">
+            <End Role="students" EntitySet="students" />
+            <End Role="marks" EntitySet="marks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB1ModelStoreContainer" CdmEntityContainer="DB1Entities1">
+          <EntitySetMapping Name="Emps">
+            <EntityTypeMapping TypeName="DB1Model.Emp">
+              <MappingFragment StoreEntitySet="Emp">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPLOYEEs">
+            <EntityTypeMapping TypeName="DB1Model.EMPLOYEE">
+              <MappingFragment StoreEntitySet="EMPLOYEE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ENAME" ColumnName="ENAME" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="SELERY" ColumnName="SELERY" />
+                <ScalarProperty Name="JOINDATE" ColumnName="JOINDATE" />
+                <ScalarProperty Name="Desig" ColumnName="Desig" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="marks">
+            <EntityTypeMapping TypeName="DB1Model.mark">
+              <MappingFragment StoreEntitySet="marks">
+                <ScalarProperty Name="mark_id" ColumnName="mark_id" />
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="subject" ColumnName="subject" />
+                <ScalarProperty Name="marks" ColumnName="marks" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="students">
+            <EntityTypeMapping TypeName="DB1Model.student">
+              <MappingFragment StoreEntitySet="students">
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="class" ColumnName="class" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usersTables">
+            <EntityTypeMapping TypeName="DB1Model.usersTable">
+              <MappingFragment StoreEntitySet="usersTable">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="role" ColumnName="role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
